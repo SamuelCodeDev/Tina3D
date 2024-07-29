@@ -136,7 +136,7 @@ namespace Tina::Linux
 		windowWidth = screen->width;
 		windowHeight = screen->height;
 		screenNum = DefaultScreen(display);
-    	window = RootWindow(display, screenNum);
+		window = RootWindow(display, screenNum);
 		windowTitle = "GameWindow";
 		windowPosX = 0;
 		windowPosY = 0;
@@ -168,27 +168,27 @@ namespace Tina::Linux
 
 		window = XCreateSimpleWindow(
 			display,
-            window,
-            windowPosX,
-            windowPosY,
-            windowWidth,
+			window,
+			windowPosX,
+			windowPosY,
+			windowWidth,
 			windowHeight,
-            0,
-            BlackPixel(display, screenNum),
-            WhitePixel(display, screenNum)
+			0,
+			BlackPixel(display, screenNum),
+			WhitePixel(display, screenNum)
 		);
 		XStoreName(display, window, windowTitle.c_str());
 
-	    XSelectInput(display, window, ButtonPressMask | StructureNotifyMask);
-    	XMapWindow(display, window);
+		XSelectInput(display, window, ButtonPressMask | StructureNotifyMask);
+		XMapWindow(display, window);
 
 		screenNum = DefaultScreen(display);
-    	gc = XCreateGC(display, window, 0, 0);
+		gc = XCreateGC(display, window, 0, 0);
 		if (!gc)
 			return false;
 
-    	XSetBackground(display, gc, WhitePixel(display, screenNum)); 
-    	XSetForeground(display, gc, BlackPixel(display, screenNum));
+		XSetBackground(display, gc, WhitePixel(display, screenNum)); 
+		XSetForeground(display, gc, BlackPixel(display, screenNum));
 
 		return true;
 	}

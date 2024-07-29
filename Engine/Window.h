@@ -2,7 +2,6 @@
 #define WINDOW_H
 
 #include "Types.h"
-//#include "Defines.h"
 
 namespace Tina
 {
