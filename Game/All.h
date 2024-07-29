@@ -7,5 +7,6 @@
 #include "Utils.h"
 #include "Window.h"
 #include "Error.h"
+#include "Input.h"
 
 #endif

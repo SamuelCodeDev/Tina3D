@@ -8,6 +8,7 @@ using std::this_thread::sleep_for;
 namespace Tina
 {
     TinaWindow *& Game::window = EngineDesc::window;
+    Input *& Game::input = EngineDesc::input;
 
     Game::Game() noexcept
     {

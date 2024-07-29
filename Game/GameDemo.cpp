@@ -9,8 +9,8 @@ namespace Tina
 
     void GameDemo::Update()
     {
-        //if (event.type == )
-        //    window->Close();
+        if (input->TKeyPress(VK_Q))
+            window->Close();
     }
 
     void GameDemo::Display()

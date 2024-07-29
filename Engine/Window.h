@@ -152,10 +152,10 @@ namespace Tina::Linux
 		void Size(const int32 width, const int32 height) noexcept;
 		bool Create();
 
-		Display* XDisplay() const noexcept;
+		Display* TDisplay() const noexcept;
 	};
 
-	inline Display* Window::XDisplay() const noexcept
+	inline Display* Window::TDisplay() const noexcept
 	{ return display; }
 }
 

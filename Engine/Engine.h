@@ -14,7 +14,7 @@ namespace Tina
     public:
         //static Graphics* graphics;
         static TinaWindow* window;
-        //static Input* input;
+        static Input* input;
         static Game* game;
         //static double frameTime;
 

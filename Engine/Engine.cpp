@@ -1,9 +1,9 @@
 #include "Engine.h"
 
-//Graphics* EngineDesc::graphics = nullptr;
 TinaWindow* Tina::EngineDesc::window = nullptr;
-//Input* EngineDesc::input = nullptr;
 Tina::Game* Tina::EngineDesc::game = nullptr;
+//Graphics* EngineDesc::graphics = nullptr;
+Input* Tina::EngineDesc::input = nullptr;
 //double EngineDesc::frameTime = {};
 //bool EngineDesc::paused = false;
 //Timer EngineDesc::timer;
@@ -29,7 +29,7 @@ namespace Tina::Windows
     {
         delete game;
         //delete graphics;
-        //delete input;
+        delete input;
         delete window;
     }
 
@@ -39,7 +39,7 @@ namespace Tina::Windows
 
         window->Create();
 
-        //input = new Input();
+        input = new Input();
 
         //graphics->Initialize(window);
 
@@ -118,7 +118,7 @@ namespace Tina::Windows
                 // Pause/Resume Game
                 // -----------------------------------------------
                 
-                if (input->KeyPress(VK_PAUSE))
+                if (input->TKeyPress(VK_PAUSE))
                 { (paused) ? Resume() : Pause(); }
 
                 if (!paused)
@@ -146,8 +146,7 @@ namespace Tina::Windows
         if (msg == WM_PAINT)
             game->Display();
 
-        //return CallWindowProc(Input::InputProc, hWnd, msg, wParam, lParam);
-        return CallWindowProc(Windows::Window::WinProc, hWnd, msg, wParam, lParam);
+        return CallWindowProc(Input::InputProc, hWnd, msg, wParam, lParam);
     }
 }
 
@@ -201,10 +200,10 @@ namespace Tina::Linux
 
         do
         {
-            XNextEvent(window->XDisplay(), &event);
+            XNextEvent(window->TDisplay(), &event);
             game->Update();
             game->Draw();
-        } while (event.type != (event.xclient.data.l[0] == XInternAtom(window->XDisplay(), "WM_DELETE_WINDOW", False)));
+        } while (event.type != (event.xclient.data.l[0] == XInternAtom(window->TDisplay(), "WM_DELETE_WINDOW", False)));
 
         game->Finalize();
 

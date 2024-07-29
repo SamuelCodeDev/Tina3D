@@ -2,11 +2,14 @@
 #define GAME_H
 
 #include "Window.h"
+#include "Input.h"
 
 #ifdef _WIN32
 	using TinaWindow = Tina::Windows::Window;
+    using Input = Tina::Windows::Input;
 #elif __linux__
     using TinaWindow = Tina::Linux::Window;
+    using Input = Tina::Linux::Input;
 #endif
 
 namespace Tina
@@ -15,6 +18,7 @@ namespace Tina
 	{
     protected:
         static TinaWindow *& window;
+        static Input *& input;
 
     public:
         Game() noexcept;
