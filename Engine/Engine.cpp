@@ -1,5 +1,13 @@
 #include "Engine.h"
 
+//Graphics* EngineDesc::graphics = nullptr;
+TinaWindow* Tina::EngineDesc::window = nullptr;
+//Input* EngineDesc::input = nullptr;
+Tina::Game* Tina::EngineDesc::game = nullptr;
+//double EngineDesc::frameTime = {};
+//bool EngineDesc::paused = false;
+//Timer EngineDesc::timer;
+
 #ifdef _WIN32
 
 #include "KeyCodes.h"
@@ -8,14 +16,6 @@ using std::format;
 
 //#include <mmsystem.h>
 //#pragma comment(lib, "winmm.lib")
-
-//Graphics* EngineDesc::graphics = nullptr;
-Window* Tina::EngineDesc::window = nullptr;
-//Input* EngineDesc::input = nullptr;
-Tina::Game* Tina::EngineDesc::game = nullptr;
-//double EngineDesc::frameTime = {};
-//bool EngineDesc::paused = false;
-//Timer EngineDesc::timer;
 
 namespace Tina::Windows
 {
@@ -155,7 +155,61 @@ namespace Tina::Windows
 
 namespace Tina::Linux
 {
+    Engine::Engine() noexcept
+    {
+        window = new Window();
+        //graphics = new Graphics();
+    }
 
+    Engine::~Engine() noexcept
+    {
+        delete game;
+        //delete graphics;
+        //delete input;
+        delete window;
+    }
+
+    int32 Engine::Start(Game* game)
+    {
+        this->game = game;
+
+        if(!window->Create()) {
+            return 7;
+        }
+
+        //input = new Input();
+
+        //graphics->Initialize(window);
+
+        /*
+        timeBeginPeriod(1);
+
+        int32 exitCode = Loop();
+
+        timeEndPeriod(1);
+        */
+
+        //return exitCode;
+        return Loop();
+    }
+
+    int32 Engine::Loop() noexcept
+    {
+        //timer.Start();
+        game->Init();
+        XEvent event{};
+
+        do
+        {
+            XNextEvent(window->XDisplay(), &event);
+            game->Update();
+            game->Draw();
+        } while (event.type != (event.xclient.data.l[0] == XInternAtom(window->XDisplay(), "WM_DELETE_WINDOW", False)));
+
+        game->Finalize();
+
+        return 0;
+    }
 }
 
 #endif

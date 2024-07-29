@@ -13,7 +13,7 @@ namespace Tina
 
     public:
         //static Graphics* graphics;
-        static Window* window;
+        static TinaWindow* window;
         //static Input* input;
         static Game* game;
         //static double frameTime;
@@ -53,7 +53,18 @@ namespace Tina::Windows
 
 namespace Tina::Linux
 {
+    class Engine final : public EngineDesc
+    {
+    private:
+        //double FrameTime();
+        int32 Loop() noexcept;
 
+    public:
+        Engine() noexcept;
+        ~Engine() noexcept;
+
+        int32 Start(Game* game);
+    };
 }
 
 #endif

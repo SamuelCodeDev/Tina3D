@@ -5,16 +5,16 @@
 #include <cstring>
 
 template<typename T>
-inline void* ZeroMemory(T* DesTination, const size_t Length)
+inline void* ZeroMemory(T* DesTination, const auto Length)
 { return memset(DesTination, 0, Length); }
 
 template<typename T>
-inline void* CopyMemory(T* DesTination, T* Source, const size_t Length)
+inline void* CopyMemory(T* DesTination, T* Source, const auto Length)
 { return memcpy(DesTination, Source, Length); }
 #endif
 
-template<typename T, size_t N>
-inline constexpr size_t countof(T(&array)[N])
+template<typename T, auto N>
+inline constexpr auto countof(T(&array)[N])
 { return N; }
 
 template<typename T>

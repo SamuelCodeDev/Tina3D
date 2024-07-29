@@ -4,9 +4,9 @@
 #include "Window.h"
 
 #ifdef _WIN32
-	using Window = Tina::Windows::Window;
+	using TinaWindow = Tina::Windows::Window;
 #elif __linux__
-    using Window = Tina::Linux::Window;
+    using TinaWindow = Tina::Linux::Window;
 #endif
 
 namespace Tina
@@ -14,7 +14,7 @@ namespace Tina
 	class Game
 	{
     protected:
-        static Window*& window;
+        static TinaWindow *& window;
 
     public:
         Game() noexcept;

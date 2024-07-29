@@ -55,6 +55,24 @@ auto APIENTRY WinMain(_In_ HINSTANCE hInstance,
 #else
 int main(int argc, char ** argv)
 {
+    using namespace Tina;
 
+    using Engine = Tina::Linux::Engine;
+
+    Engine* engine = new Engine();
+    //engine->window->Mode(WINDOWED);
+    engine->window->Size(800, 600);
+    //engine->window->Color(0, 122, 204);
+    engine->window->Title("Triangle");
+    //engine->window->Icon(IDI_ICON);
+    //engine->window->Cursor(IDC_CURSOR);
+    //engine->window->LostFocus(Engine::Pause);
+    //engine->window->InFocus(Engine::Resume);
+
+    int32 exit = engine->Start(new GameDemo());
+
+    delete engine;
+
+    return exit;
 }
 #endif

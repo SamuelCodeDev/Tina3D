@@ -141,11 +141,22 @@ namespace Tina::Linux
 		Display* display;
 		int32 screenNum;
 		::Window window;
+		Screen* screen;
+		GC gc;
+		Cursor cursor;
 
 	public:
 		Window() noexcept;
-		Window() noexcept;
-	}
+		~Window() noexcept;
+
+		void Size(const int32 width, const int32 height) noexcept;
+		bool Create();
+
+		Display* XDisplay() const noexcept;
+	};
+
+	inline Display* Window::XDisplay() const noexcept
+	{ return display; }
 }
 
 #endif

@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Utils.h"
 
 #ifdef _WIN32
 
@@ -130,12 +131,66 @@ namespace Tina::Linux
 {
 	Window::Window() noexcept
 	{
-
+		display = XOpenDisplay(nullptr);
+		screen = DefaultScreenOfDisplay(display);
+		windowWidth = screen->width;
+		windowHeight = screen->height;
+		screenNum = DefaultScreen(display);
+    	window = RootWindow(display, screenNum);
+		windowTitle = "GameWindow";
+		windowPosX = 0;
+		windowPosY = 0;
+		//windowCenterX = windowWidth / 2.0f;
+		//windowCenterY = windowHeight / 2.0f;
 	}
 
 	Window::~Window() noexcept
 	{
+		XCloseDisplay(display);
+	}
 
+	void Window::Size(const int32 width, const int32 height) noexcept
+	{
+		windowWidth = width;
+		windowHeight = height;
+
+		//windowCenterX = windowWidth / 2.0f;
+		//windowCenterY = windowHeight / 2.0f;
+
+		windowPosX = screen->width / 2.0f - windowWidth / 2.0f;
+		windowPosY = screen->height / 2.0f - windowHeight / 2.0f;
+	}
+
+	bool Window::Create()
+	{
+		if (!display)
+			return false;
+
+		window = XCreateSimpleWindow(
+			display,
+            window,
+            windowPosX,
+            windowPosY,
+            windowWidth,
+			windowHeight,
+            0,
+            BlackPixel(display, screenNum),
+            WhitePixel(display, screenNum)
+		);
+		XStoreName(display, window, windowTitle.c_str());
+
+	    XSelectInput(display, window, ButtonPressMask | StructureNotifyMask);
+    	XMapWindow(display, window);
+
+		screenNum = DefaultScreen(display);
+    	gc = XCreateGC(display, window, 0, 0);
+		if (!gc)
+			return false;
+
+    	XSetBackground(display, gc, WhitePixel(display, screenNum)); 
+    	XSetForeground(display, gc, BlackPixel(display, screenNum));
+
+		return true;
 	}
 }
 

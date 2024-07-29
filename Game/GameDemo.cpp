@@ -1,4 +1,5 @@
 #include "GameDemo.h"
+#include "KeyCodes.h"
 
 namespace Tina
 {
@@ -8,7 +9,7 @@ namespace Tina
 
     void GameDemo::Update()
     {
-        //if (input->KeyPress(VK_ESCAPE))
+        //if (event.type == )
         //    window->Close();
     }
 
